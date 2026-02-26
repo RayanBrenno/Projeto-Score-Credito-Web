@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import joblib
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
@@ -10,10 +11,14 @@ COL_ALVO = "score_credito"
 COL_ID = "id_cliente"
 RANDOM_STATE = 1
 
+TRAIN_CSV = "data/clientes.csv"
+OUT_MODEL = "models/modelo_score_credito.joblib"
+
+
 # =========================
 # 1) LER E LIMPAR BASE
 # =========================
-df = pd.read_csv("clientes.csv", skipinitialspace=True)
+df = pd.read_csv(TRAIN_CSV, skipinitialspace=True)
 df.columns = df.columns.str.strip()
 
 for c in df.columns:
@@ -31,6 +36,7 @@ if COL_ID in df.columns:
 X = df.drop(columns=drop_cols).copy()
 y = df[COL_ALVO].astype(str).str.strip()
 
+
 # =========================
 # 3) CONVERTER NUMÉRICAS QUANDO FIZER SENTIDO
 # =========================
@@ -41,15 +47,19 @@ for c in X.columns:
     else:
         X[c] = X[c].astype(str).str.strip()
 
+
 # =========================
-# 4) ENCODING + NaN
+# 4) ENCODING + IMPUTAÇÃO
 # =========================
 encoders = {}
+numeric_medians = {}
 
 for c in X.columns:
     if pd.api.types.is_numeric_dtype(X[c]):
+        med = float(X[c].median()) if X[c].notna().any() else 0.0
+        numeric_medians[c] = med
         if X[c].isna().any():
-            X[c] = X[c].fillna(X[c].median())
+            X[c] = X[c].fillna(med)
     else:
         le = LabelEncoder()
         serie = X[c].astype(str).str.strip().fillna("DESCONHECIDO")
@@ -57,10 +67,11 @@ for c in X.columns:
         le.classes_ = np.array(le.classes_, dtype=str)
         encoders[c] = le
 
+
 # =========================
 # 5) TREINO / TESTE
 # =========================
-X_tr, X_te, y_tr, y_te = train_test_split(
+x_train, x_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=RANDOM_STATE, stratify=y
 )
 
@@ -70,44 +81,30 @@ modelo = RandomForestClassifier(
     n_jobs=-1
 )
 
-modelo.fit(X_tr, y_tr)
+modelo.fit(x_train, y_train)
 
-pred = modelo.predict(X_te)
-acc = accuracy_score(y_te, pred)
+pred = modelo.predict(x_test)
+acc = accuracy_score(y_test, pred)
 print("Accuracy RandomForest:", acc)
 
+
 # =========================
-# 6) PREVER NOVOS CLIENTES
+# 6) SALVAR MODELO + METADADOS
 # =========================
-novos = pd.read_csv("novos_clientes.csv", skipinitialspace=True)
-novos.columns = novos.columns.str.strip()
+joblib.dump(
+    {
+        "model": modelo,
+        "encoders": encoders,
+        "numeric_medians": numeric_medians,
+        "columns": list(X.columns),
+        "meta": {
+            "COL_ALVO": COL_ALVO,
+            "COL_ID": COL_ID,
+            "RANDOM_STATE": RANDOM_STATE,
+            "accuracy_holdout": float(acc),
+        },
+    },
+    OUT_MODEL,
+)
 
-for c in novos.columns:
-    if novos[c].dtype == "object" or str(novos[c].dtype).startswith("string"):
-        novos[c] = novos[c].astype(str).str.strip()
-
-if COL_ID in novos.columns:
-    novos = novos.drop(columns=[COL_ID])
-
-# garante mesmas colunas do treino
-novos = novos.reindex(columns=X.columns, fill_value=np.nan)
-
-for c in novos.columns:
-    if pd.api.types.is_numeric_dtype(X[c]):
-        novos[c] = pd.to_numeric(novos[c], errors="coerce")
-        if novos[c].isna().any():
-            novos[c] = novos[c].fillna(X[c].median())
-    else:
-        le = encoders[c]
-        serie = novos[c].astype(str).str.strip().fillna("DESCONHECIDO")
-
-        classes_treino = set(le.classes_.tolist())
-        serie = serie.apply(lambda v: v if v in classes_treino else "DESCONHECIDO")
-
-        if "DESCONHECIDO" not in classes_treino:
-            le.classes_ = np.array(list(le.classes_) + ["DESCONHECIDO"], dtype=str)
-
-        novos[c] = le.transform(np.array(serie, dtype=str))
-
-previsoes = modelo.predict(novos)
-print("Previsões novos clientes:", previsoes)
+print(f"✅ Modelo salvo em: {OUT_MODEL}")
