@@ -8,7 +8,7 @@ COL_ID = "id_cliente"
 # =========================
 # CARREGAR MODELO SALVO
 # =========================
-data = joblib.load("models/modelo_score_credito.joblib")
+data = joblib.load("models/modelo_score_credito_clientes_limpo.joblib")
 
 modelo = data["model"]
 encoders = data["encoders"]

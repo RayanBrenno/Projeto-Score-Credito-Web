@@ -11,8 +11,8 @@ COL_ALVO = "score_credito"
 COL_ID = "id_cliente"
 RANDOM_STATE = 1
 
-TRAIN_CSV = "data/clientes.csv"
-OUT_MODEL = "models/modelo_score_credito.joblib"
+TRAIN_CSV = "data/clientes_limpo.csv"
+OUT_MODEL = "models/modelo_score_credito_clientes_limpo.joblib"
 
 
 # =========================
@@ -76,7 +76,7 @@ x_train, x_test, y_train, y_test = train_test_split(
 )
 
 modelo = RandomForestClassifier(
-    n_estimators=300,
+    n_estimators=500,
     random_state=RANDOM_STATE,
     n_jobs=-1
 )

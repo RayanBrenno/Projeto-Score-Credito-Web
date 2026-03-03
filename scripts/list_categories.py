@@ -1,6 +1,6 @@
 import pandas as pd
 
-CAMINHO_CSV = "data/clientes.csv"   
+CAMINHO_CSV = "data/clientes_limpo.csv"   
 
 df = pd.read_csv(CAMINHO_CSV, skipinitialspace=True)
 df.columns = df.columns.str.strip()
