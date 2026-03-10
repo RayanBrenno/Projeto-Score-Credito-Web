@@ -4,3 +4,8 @@ joblib
 fastapi
 uvicorn
 python-multipart
+fastapi
+uvicorn
+pymongo
+python-dotenv
+httpx
