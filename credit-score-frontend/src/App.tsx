@@ -122,7 +122,11 @@ export default function App() {
           </div>
         </footer>
       </div>
-      
+      <ResultModal
+        result={result}
+        isOpen={showResult}
+        onClose={() => setShowResult(false)}
+      />
     </div>
   );
 }
