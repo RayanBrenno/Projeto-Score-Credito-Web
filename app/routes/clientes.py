@@ -1,10 +1,9 @@
 from datetime import datetime
 from bson import ObjectId
 from fastapi import APIRouter, HTTPException
-
 from app.database import clientes_collection
-from app.schemas import ClienteCreate
 from app.utils import serialize_mongo_doc, is_valid_object_id
+from app.schemas.cliente import ClienteCreate
 
 router = APIRouter(prefix="/clientes", tags=["Clientes"])
 
