@@ -1,11 +1,12 @@
 pandas
 scikit-learn
 joblib
-fastapi
-uvicorn
 python-multipart
 fastapi
-uvicorn
 pymongo
 python-dotenv
 httpx
+uvicorn[standard]
+passlib[bcreypt]
+python-jose
+pydantic[email]
