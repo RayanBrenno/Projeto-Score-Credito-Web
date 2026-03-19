@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes.analises import router as analises_router
+from app.routes.autenticacao import router as auth_router
 
 app = FastAPI(
     title="API de Análise de Crédito",
@@ -16,3 +17,4 @@ app.add_middleware(
 )
 
 app.include_router(analises_router)
+app.include_router(auth_router)
