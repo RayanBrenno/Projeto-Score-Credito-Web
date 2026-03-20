@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   async function loadUser() {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
 
     if (!token) {
       setUser(null);
@@ -58,7 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const data = await response.json();
       setUser(data);
     } catch (error) {
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       setUser(null);
     } finally {
       setLoading(false);
@@ -84,7 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw new Error(result.detail || "Erro ao fazer login");
     }
 
-    localStorage.setItem("token", result.access_token);
+    sessionStorage.setItem("token", result.access_token);
     setUser(result.user);
   }
 
@@ -103,12 +103,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw new Error(result.detail || "Erro ao cadastrar");
     }
 
-    localStorage.setItem("token", result.access_token);
+    sessionStorage.setItem("token", result.access_token);
     setUser(result.user);
   }
 
   function logout() {
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     setUser(null);
   }
 
