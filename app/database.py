@@ -10,5 +10,5 @@ MONGO_DB = os.getenv("MONGO_DB")
 client = MongoClient(MONGO_URL)
 db = client[MONGO_DB]
 
-clientes_collection = db["clientes"]
+users_collection = db["users"]
 analises_collection = db["analises_credito"]

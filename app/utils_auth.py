@@ -1,6 +1,4 @@
-from app.database import db
-
-users_collection = db["users"]
+from app.database import users_collection
 
 def get_user_by_email(email: str):
     return users_collection.find_one({"email": email})

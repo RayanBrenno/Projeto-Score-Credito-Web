@@ -8,13 +8,3 @@ class RegisterSchema(BaseModel):
 class LoginSchema(BaseModel):
     email: EmailStr
     password: str
-
-class UserResponseSchema(BaseModel):
-    id: str
-    name: str
-    email: EmailStr
-
-class TokenResponseSchema(BaseModel):
-    access_token: str
-    token_type: str
-    user: UserResponseSchema
