@@ -15,6 +15,7 @@ interface FormSelectProps {
   placeholder?: string;
 }
 
+// Componente para campos de seleção (dropdown), com rótulo, valor, função de mudança, opções e outras propriedades
 export default function FormSelect({
   label,
   value,
@@ -26,6 +27,7 @@ export default function FormSelect({
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Normalizar as opções para garantir que todas tenham a estrutura { value, label }, mesmo as que são passadas como string simples
   const normalizedOptions: Option[] = options.map((option) =>
     typeof option === "object"
       ? option
@@ -34,6 +36,7 @@ export default function FormSelect({
 
   const selectedOption = normalizedOptions.find((opt) => opt.value === value);
 
+  // Fechar o dropdown quando clicar fora do componente, usando um event listener no documento para detectar cliques e verificar se o clique ocorreu fora do container do dropdown
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -50,6 +53,7 @@ export default function FormSelect({
     };
   }, []);
 
+  // Função para lidar com a seleção de uma opção, atualizando o valor selecionado e fechando o dropdown
   const handleSelect = (optionValue: string) => {
     onChange(optionValue);
     setOpen(false);

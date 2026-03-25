@@ -39,6 +39,7 @@ const JOB_OPTIONS = [
   { value: "professor", label: "Professor" }
 ];
 
+// Componente principal do formulário de análise de crédito, dividido em seções para organizar os campos de entrada, com botões para analisar e limpar o formulário, e um estado de carregamento para indicar quando a análise está em andamento
 export default function CreditForm({
   form,
   onChange,
@@ -48,6 +49,8 @@ export default function CreditForm({
 }: CreditFormProps) {
   return (
     <div className="bg-slate-800/50 backdrop-blur border border-slate-700/50 rounded-2xl p-8">
+
+      {/* Seção de informações pessoais, com campos para nome, idade, profissão e salário anual, permitindo ao usuário fornecer dados básicos sobre si mesmo que são relevantes para a análise de crédito */}
       <FormSection title="Informações Pessoais" subtitle="Dados básicos do cliente">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormField
@@ -80,6 +83,7 @@ export default function CreditForm({
         </div>
       </FormSection>
 
+      {/* Seção de contas e cartões, com campos para número de contas bancárias e número de cartões de crédito */}
       <FormSection title="Contas e Cartões" subtitle="Informações sobre contas bancárias">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormField
@@ -99,6 +103,7 @@ export default function CreditForm({
         </div>
       </FormSection>
 
+      {/* Seção de empréstimos, com campos para juros do empréstimo e número de empréstimos, permitindo ao usuário inserir informações sobre suas dívidas e obrigações financeiras */}
       <FormSection title="Empréstimos" subtitle="Dados sobre empréstimos e juros">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormField
@@ -119,6 +124,7 @@ export default function CreditForm({
         </div>
       </FormSection>
 
+      {/* Seção de histórico de pagamentos, com campos para dias de atraso, número de pagamentos atrasados e número de verificações de crédito, permitindo ao usuário fornecer informações sobre seu comportamento de pagamento e histórico financeiro */}
       <FormSection title="Histórico de Pagamentos" subtitle="Informações sobre atrasos e verificações">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormField
@@ -145,6 +151,7 @@ export default function CreditForm({
         </div>
       </FormSection>
 
+      {/* Seção de perfil de crédito, com campos para mix de crédito, dívida total, taxa de uso de crédito e idade do histórico de crédito, permitindo ao usuário fornecer informações sobre sua situação financeira atual e uso de crédito */}
       <FormSection title="Perfil de Crédito" subtitle="Análise de dívida e uso de crédito">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormSelect
@@ -178,6 +185,7 @@ export default function CreditForm({
         </div>
       </FormSection>
 
+      {/* Seção de comportamento financeiro, com um campo para comportamento de pagamento, permitindo ao usuário fornecer informações sobre seus padrões de gasto e pagamento, o que pode ser um indicador importante para a análise de crédito */}
       <FormSection title="Comportamento Financeiro" subtitle="Padrões de gasto e pagamento">
         <FormSelect
           label="Comportamento de Pagamento"
@@ -187,6 +195,7 @@ export default function CreditForm({
         />
       </FormSection>
 
+      {/* Seção de investimentos e saldo, com campos para investimento mensal e saldo final do mês, permitindo ao usuário fornecer informações sobre sua capacidade de poupança e investimento, o que pode ser um indicador importante para a análise de crédito */}
       <FormSection title="Investimentos e Saldo" subtitle="Capacidade de poupança e investimento">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormField
@@ -206,6 +215,7 @@ export default function CreditForm({
         </div>
       </FormSection> 
 
+      {/* Botões para analisar o score de crédito e limpar o formulário, com um estado de carregamento para indicar quando a análise está em andamento, desabilitando os botões durante a análise para evitar múltiplas submissões */}
       <div className="flex gap-4 mt-8">
         <button
           onClick={onAnalyze}

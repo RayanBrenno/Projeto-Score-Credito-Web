@@ -46,6 +46,7 @@ function getClassificationIcon(classe?: CreditClass) {
   }
 }
 
+// Componente para exibir o resultado da análise de crédito em um modal, mostrando a classificação, cor e ícone correspondentes, além de uma mensagem opcional e um botão para fechar o modal
 export default function ResultModal({ result, isOpen, onClose }: ResultModalProps) {
   if (!isOpen || !result) return null;
 

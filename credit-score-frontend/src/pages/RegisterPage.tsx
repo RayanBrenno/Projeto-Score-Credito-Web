@@ -15,6 +15,7 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const { register } = useAuth();
 
+  // Função para lidar com mudanças nos campos do formulário, atualizando o estado do formulário conforme o usuário preenche os dados
   function handleChange(field: string, value: string) {
     setFormData((prev) => ({
       ...prev,
@@ -22,6 +23,7 @@ export default function RegisterPage() {
     }));
   }
 
+  // Função para lidar com o registro do usuário, validando os dados do formulário e fazendo uma requisição para a API de autenticação, redirecionando para o dashboard em caso de sucesso ou exibindo uma mensagem de erro em caso de falha.
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
     setError("");
@@ -84,6 +86,7 @@ export default function RegisterPage() {
             </div>
           )}
 
+          {/* Formulário de registro, com campos para nome, email, senha e confirmação de senha, além de um botão para enviar os dados e criar a conta. */}
           <form onSubmit={handleRegister} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-white mb-2">
@@ -155,7 +158,8 @@ export default function RegisterPage() {
               )}
             </button>
           </form>
-
+          
+          {/* Link para a página de login, caso o usuário já tenha uma conta, permitindo que ele navegue facilmente para a tela de autenticação. */}
           <div className="mt-8 pt-8 border-t border-slate-700">
             <p className="text-slate-400 text-center text-sm mb-4">
               Já tem uma conta?

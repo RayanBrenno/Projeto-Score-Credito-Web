@@ -5,9 +5,13 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
+// Componente para proteger rotas que exigem autenticação
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
+  
+  // Obter o estado de autenticação do contexto
   const { user, loading } = useAuth();
 
+  // Se ainda estiver carregando, mostrar um indicador de carregamento
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
@@ -19,9 +23,11 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
     );
   }
 
+  // Se o usuário não estiver autenticado, redirecionar para a página de login
   if (!user) {
     return <Navigate to="/login" replace />;
   }
 
+  // Se o usuário estiver autenticado, renderizar os filhos (conteúdo protegido)
   return <>{children}</>;
 }

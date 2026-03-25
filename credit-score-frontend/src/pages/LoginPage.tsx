@@ -11,11 +11,12 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
+  // Função para lidar com o envio do formulário de login
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
-
+    // Tenta fazer login com as credenciais fornecidas, e navega para o dashboard se for bem-sucedido
     try {
       await login({
         email: email.trim(),
@@ -23,6 +24,7 @@ export default function LoginPage() {
       });
       navigate("/dashboard");
     } catch (err: any) {
+      // Exibe uma mensagem de erro caso o login falhe
       setError(err.message || "Erro ao fazer login");
     } finally {
       setLoading(false);
@@ -44,11 +46,14 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <h1 className="text-3xl font-bold text-white text-center mb-2">Login</h1>
+          <h1 className="text-3xl font-bold text-white text-center mb-2">
+            Login
+          </h1>
           <p className="text-slate-400 text-center text-sm mb-8">
             Acesse sua conta de análise de crédito
           </p>
 
+          {/* Exibe uma mensagem de erro se houver um erro de login, com um ícone de alerta e um fundo vermelho suave para destacar a mensagem */}
           {error && (
             <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-3">
               <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
@@ -56,6 +61,7 @@ export default function LoginPage() {
             </div>
           )}
 
+          {/* Formulário de login com campos para email e senha, e um botão de submit que chama a função handleLogin */}
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-white mb-2">
@@ -104,6 +110,7 @@ export default function LoginPage() {
             </button>
           </form>
 
+          {/* Link para a página de registro, com um texto convidativo e um botão estilizado que leva o usuário para a página de criação de conta */}
           <div className="mt-8 pt-8 border-t border-slate-700">
             <p className="text-slate-400 text-center text-sm mb-4">
               Não tem uma conta?

@@ -37,6 +37,7 @@ export default function DashboardPage() {
   const [showResult, setShowResult] = useState(false);
   const [error, setError] = useState("");
 
+  // Função para lidar com mudanças nos campos do formulário, atualizando o estado do formulário conforme o usuário preenche os dados
   function handleChange(field: keyof FormDataType, value: string) {
     setForm((prev) => ({
       ...prev,
@@ -44,6 +45,7 @@ export default function DashboardPage() {
     }));
   }
 
+  // Função para lidar com a análise de crédito, validando os dados do formulário e fazendo uma requisição para a API de previsão, exibindo o resultado em um modal ou uma mensagem de erro caso a análise falhe
   async function handleAnalyze() {
     if (!form.nome) {
       setError("Por favor, preencha o nome do cliente");
@@ -68,6 +70,7 @@ export default function DashboardPage() {
     }
   }
 
+  // Função para lidar com o reset do formulário, limpando os dados preenchidos
   function handleReset() {
     setForm(INITIAL_FORM);
     setResult(null);
@@ -75,6 +78,7 @@ export default function DashboardPage() {
     setError("");
   }
 
+  // Função para lidar com o logout do usuário, removendo a sessão atual e redirecionando para a página de login
   async function handleLogout() {
     try {
       await logout();
@@ -100,12 +104,16 @@ export default function DashboardPage() {
                   <TrendingUp className="w-6 h-6 text-blue-400" />
                 </div>
                 <div>
-                  <h1 className="text-3xl font-bold text-white">Análise de Score de Crédito</h1>
+                  <h1 className="text-3xl font-bold text-white">
+                    Análise de Score de Crédito
+                  </h1>
                   <p className="text-slate-400 text-sm mt-1">
                     Bem-vindo, {user?.name}
                   </p>
                 </div>
               </div>
+
+              {/* Botão de logout, que chama a função handleLogout ao ser clicado, permitindo que o usuário saia da aplicação de forma segura e seja redirecionado para a página de login */}
               <button
                 onClick={handleLogout}
                 className="flex items-center gap-2 bg-red-600/20 hover:bg-red-600/30 text-red-300 border border-red-600/50 px-4 py-2 rounded-lg transition-all"
@@ -125,6 +133,7 @@ export default function DashboardPage() {
               </div>
             )}
 
+            {/* Cria o formulário de análise de crédito, utilizando os estados e funções definidos */}
             <CreditForm
               form={form}
               onChange={handleChange}
@@ -138,13 +147,19 @@ export default function DashboardPage() {
         <footer className="border-t border-slate-700/50 backdrop-blur-sm bg-slate-800/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <p className="text-slate-400 text-sm text-center">
-              Sistema de Análise de Crédito © 2026 - Processamento seguro e confidencial
+              Sistema de Análise de Crédito © 2026 - Processamento seguro e
+              confidencial
             </p>
           </div>
         </footer>
       </div>
 
-      <ResultModal result={result} isOpen={showResult} onClose={() => setShowResult(false)} />
+      {/* Exibe o modal de resultado da análise de crédito, passando os dados do resultado e controlando a visibilidade do modal */}
+      <ResultModal
+        result={result}
+        isOpen={showResult}
+        onClose={() => setShowResult(false)}
+      />
     </div>
   );
 }

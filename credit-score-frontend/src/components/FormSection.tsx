@@ -4,6 +4,7 @@ interface FormSectionProps {
   children: React.ReactNode;
 }
 
+// Componente para seções do formulário, com título, subtítulo e conteúdo (campos do formulário)
 export default function FormSection({ title, subtitle, children }: FormSectionProps) {
   return (
     <div className="mb-8 pb-8 border-b border-slate-700/50 last:border-b-0 last:mb-0 last:pb-0">

@@ -3,11 +3,13 @@ import type { FormDataType, PredictionResponse } from "../types";
 
 const API_URL = "http://localhost:8000";
 
+// Função auxiliar para converter strings numéricas com formatação brasileira (ex: "1.234,56") para números do JavaScript (ex: 1234.56)
 function toNumber(value: string): number {
   if (!value) return 0;
   return Number(String(value).replace(/\./g, "").replace(",", "."));
 }
 
+// Objeto de API para lidar com as chamadas ao backend, incluindo a função de previsão que envia os dados do formulário para o endpoint de previsão e retorna a resposta do modelo
 export const api = {
   async predict(form: FormDataType): Promise<PredictionResponse> {
     const payload = {

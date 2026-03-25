@@ -26,14 +26,19 @@ type AuthContextType = {
   logout: () => void;
 };
 
+// Criar o contexto de autenticação
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const API_URL = "http://127.0.0.1:8000";
 
+// Provedor de autenticação para envolver a aplicação e fornecer o estado de autenticação e as funções de login, registro e logout
 export function AuthProvider({ children }: { children: ReactNode }) {
+
+  // Estado para armazenar o usuário autenticado e o estado de carregamento
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Função para carregar o usuário autenticado usando o token armazenado no sessionStorage
   async function loadUser() {
     const token = sessionStorage.getItem("token");
 
@@ -65,10 +70,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  // Carregar o usuário autenticado quando o componente for montado, sempre verificando o token armazenado no sessionStorage para manter a sessão ativa mesmo após recarregar a página ou ao abrir 
   useEffect(() => {
     loadUser();
   }, []);
 
+  // Função para fazer login, enviando os dados para a API e armazenando o token e as informações do usuário no estado e no sessionStorage
   async function login(data: LoginData) {
     const response = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
@@ -88,6 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(result.user);
   }
 
+  // Função para fazer registro, enviando os dados para a API e armazenando o token e as informações do usuário no estado e no sessionStorage
   async function register(data: RegisterData) {
     const response = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
@@ -107,6 +115,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(result.user);
   }
 
+  // Função para fazer logout, removendo o token do sessionStorage e limpando as informações do usuário do estado
   function logout() {
     sessionStorage.removeItem("token");
     setUser(null);
@@ -119,6 +128,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// 
 export function useAuth() {
   const context = useContext(AuthContext);
 

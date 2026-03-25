@@ -8,6 +8,7 @@ interface FormFieldProps {
   fullWidth?: boolean;
 }
 
+// Componente para campos de formulário, com rótulo, valor, função de mudança, tipo e outras propriedades
 export default function FormField({
   label,
   value,
