@@ -8,14 +8,14 @@ load_dotenv()
 MODEL_PATH = os.getenv("MODEL_PATH")
 _model_bundle = None
 
-
+# Função para carregar o modelo e os preprocessadores, garantindo que seja feito apenas uma vez
 def load_model():
     global _model_bundle
     if _model_bundle is None:
         _model_bundle = joblib.load(MODEL_PATH)
     return _model_bundle
 
-
+# Função para preprocessar os dados de entrada, aplicando as mesmas transformações usadas durante o treinamento
 def preprocess_input(data: dict) -> pd.DataFrame:
     bundle = load_model()
 
@@ -43,7 +43,7 @@ def preprocess_input(data: dict) -> pd.DataFrame:
     df = df.reindex(columns=training_columns, fill_value=0)
     return df
 
-
+# Função para fazer a previsão do score de crédito usando o modelo carregado e os dados pré-processados
 def predict_credit_score(data: dict) -> str:
     bundle = load_model()
     model = bundle["model"]

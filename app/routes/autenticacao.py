@@ -6,14 +6,17 @@ from app.utils_auth import get_user_by_id
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
+# Rota para registrar um novo usuário, verificando se o e-mail já existe e criando um token de acesso
 @router.post("/register")
 def register(data: RegisterSchema):
     return register_user(data)
 
+# Rota para autenticar um usuário, verificando o e-mail e a senha, e retornando um token de acesso se as credenciais forem válidas
 @router.post("/login")
 def login(data: LoginSchema):
     return login_user(data)
 
+# Rota para obter os dados do usuário autenticado, decodificando o token de acesso e retornando as informações do usuário
 @router.get("/me")
 def me(authorization: str = Header(default=None)):
     if not authorization or not authorization.startswith("Bearer "):

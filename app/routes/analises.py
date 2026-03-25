@@ -7,7 +7,7 @@ from app.schemas.analise import AnalisePredictRequest
 router = APIRouter(prefix="/analises", tags=["Análises de Crédito"])
 
 
-#  using
+# Rota para receber os dados do formulário, prever o score de crédito usando o modelo de ML, salvar a análise no banco de dados e retornar o resultado
 @router.post("/predict")
 def prever_direto(dados: AnalisePredictRequest):
     dados_dict = dados.dict()
