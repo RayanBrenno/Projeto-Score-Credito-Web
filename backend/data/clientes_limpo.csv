@@ -1,4 +1,4 @@
-id_client,idade,salario_anual,num_contas,num_cartoes,juros_emprestimo,num_emprestimos,dias_atraso,num_pagamentos_atrasados,num_verificacoes_credito,divida_total,taxa_uso_credito,idade_historico_credito,investimento_mensal,saldo_final_mes,profissao,mix_credito,comportamento_pagamento,score_credito
+id_cliente,idade,salario_anual,num_contas,num_cartoes,juros_emprestimo,num_emprestimos,dias_atraso,num_pagamentos_atrasados,num_verificacoes_credito,divida_total,taxa_uso_credito,idade_historico_credito,investimento_mensal,saldo_final_mes,profissao,mix_credito,comportamento_pagamento,score_credito
 3392,23.0,19114.12,3.0,4.0,3.0,4.0,4.25,5.5,4.0,809.98,27.161,268.5,21.465,304.555,cientista,Bom,alto_gasto_pagamento_medio,Good
 8625,28.0,34847.84,2.0,4.0,6.0,1.0,3.5,2.25,2.0,605.03,33.481,322.5,39.684,454.344,professor,Bom,alto_gasto_pagamento_alto,Good
 11708,34.0,143162.64,1.0,5.0,8.0,3.0,8.5,6.125,3.0,1303.01,35.493,216.5,168.414,852.899,engenheiro,Bom,alto_gasto_pagamento_baixos,Good
