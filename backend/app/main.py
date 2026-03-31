@@ -10,7 +10,8 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    # allow_origins=["http://localhost:5173"],
+    allow_origins=["https://projeto-score-credito-web.vercel.app/login"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
