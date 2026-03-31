@@ -1,8 +1,8 @@
 import axios from "axios";
 import type { FormDataType, PredictionResponse } from "../types";
 
-// http://localhost:8000
-const API_URL = "https://projeto-score-credito-web.onrender.com";
+// const API_URL = "http://localhost:8000"
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Função auxiliar para converter strings numéricas com formatação brasileira (ex: "1.234,56") para números do JavaScript (ex: 1234.56)
 function toNumber(value: string): number {
