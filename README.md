@@ -58,16 +58,26 @@ Além disso, o projeto busca:
 
 ## ⚙️ Como rodar o projeto
 
+> O projeto já está disponível online no link acima.  
+[text](https://projeto-score-credito-web.vercel.app/)
+
+> Caso queira executar localmente, siga os passos abaixo.
+
 ### 🔙 Backend (FastAPI)
 
 ```bash
 
+cd backend
+
 python -m venv .venv
+
 source .venv/bin/activate  # Linux/Mac
 # ou
 .venv\Scripts\activate     # Windows
 
 pip install -r requirements.txt
+
+python scripts/train_model.py
 
 uvicorn app.main:app --reload
 ```

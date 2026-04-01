@@ -29,6 +29,7 @@ type AuthContextType = {
 // Criar o contexto de autenticação
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// const API_URL = "http://localhost:8000";
 const API_URL = import.meta.env.VITE_API_URL;
 
 // Provedor de autenticação para envolver a aplicação e fornecer o estado de autenticação e as funções de login, registro e logout

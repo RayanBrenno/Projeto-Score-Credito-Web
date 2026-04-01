@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes.analises import router as analises_router
@@ -8,10 +9,12 @@ app = FastAPI(
     version="1.0.0"
 )
 
+API_FRONT_URL = os.getenv("API_FRONT_URL")
+# API_FRONT_URL = "http://localhost:5173"
+
 app.add_middleware(
     CORSMiddleware,
-    # allow_origins=["http://localhost:5173"],
-    allow_origins=["https://projeto-score-credito-web.vercel.app"],
+    allow_origins=[API_FRONT_URL],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
